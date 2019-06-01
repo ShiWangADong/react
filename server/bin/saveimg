@@ -1,0 +1,82 @@
+// 通过
+var http = require("http");
+var fs = require("fs");
+var path = require("path");
+var data = {
+    刘辉: {
+        orderimg: [
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2017-11-14/5a0a7113359ba_real.jpg" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2017-11-14/5a0a710f8f59e_real.jpg" }
+        ]
+    },
+    李帅: {
+        orderimg: [
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2018-01-18/5a6015cdc3bb2_real.jpg" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2018-01-18/5a6015c526e68_real.jpg" }
+        ]
+    },
+    梁飞: {
+        orderimg: [
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20181118/20181118014803img48071513size_1714_2285.png" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20181118/20181118014803img14802663size_1714_2285.png" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20181118/20181118014803img16113648size_1714_2285.png" }
+        ]
+    },
+    毛旺杰: {
+        orderimg: [
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20190101/20190101102032img56558807size_1714_2285.png" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20190101/20190101102032img8743494size_1714_2285.png" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20190101/20190101102032img60967305size_1714_2285.png" }
+        ]
+    },
+    程福昌: {
+        orderimg: [
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20180620/20180620015650img18992206size_1714_2285.png" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20180620/20180620015650img99785432size_1714_2285.png" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/Upload/TeTi/20180620/20180620015651img15558500size_1714_2285.png" }
+        ]
+    },
+    许生: {
+        orderimg: [
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2017-12-13/5a30e6092717f_real.jpg" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2017-12-13/5a30e605afe43_real.jpg" },
+            { imgurl: "http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Ipad/TeTi/2017-12-13/5a30e6024938b_real.jpg" }
+        ]
+    }
+};
+var localPath = "./measure1/";
+// 递归创建目录 同步方法
+function mkdirsSync(dirname) {
+    if (fs.existsSync(dirname)) {
+        return true;
+    } else {
+        if (mkdirsSync(path.dirname(dirname))) {
+            fs.mkdirSync(dirname);
+            return true;
+        }
+    }
+}
+
+let dataKeys = Object.keys(data);
+
+dataKeys.forEach(key => {
+    let currentData = data[key];
+    let currentFolder = localPath + key + "/";
+    mkdirsSync(currentFolder);
+    currentData.orderimg.forEach((imgItem, index) => {
+        http.get(imgItem.imgurl, function(res) {
+            var imgData = "";
+            res.setEncoding("binary");
+            res.on("data", function(chunk) {
+                imgData += chunk;
+            });
+            res.on("end", function() {
+                fs.writeFile(currentFolder + index + ".png", imgData, "binary", function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    });
+});

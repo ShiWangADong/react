@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="./vendor/splite/split.min.js"></script>
+        <script src="./vendor/canvas-datagrid/canvas-datagrid.min.js"></script>
+        <script src="./js/demo.js"></script>
+        <style>
+            html,
+            body {
+                height: 100%;
+                min-height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            #grid {
+                height: 100%;
+                width: 100%;
+                min-height: 100%;
+            }
+
+            .container {
+                width: 1000px;
+                height: 400px;
+            }
+            .gutter {
+                background-color: silver;
+            }
+            .gutter-horizontal {
+                cursor: w-resize;
+            }
+
+            .gutter-vertical {
+                cursor: n-resize;
+            }
+
+            .container-flex {
+                display: flex;
+            }
+
+            .flex-column {
+                flex-direction: column;
+            }
+
+            .flex-column > div {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container container-flex">
+            <div id="one">content one</div>
+            <div id="three" class="container-flex flex-column">
+                <div id="three-1"></div>
+                <div id="three-2"></div>
+                <div id="three-3"></div>
+            </div>
+            <div id="two">
+                <div id="grid"></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        Split(["#one", "#three", "#two"], {
+            sizes: [25, 75, 400],
+            onDragEnd: function() {
+                grid.resize(true);
+            }
+        });
+        Split(["#three-1", "#three-2", "#three-3"], {
+            sizes: [25, 75, 400],
+            direction: "vertical"
+        });
+    </script>
+</html>

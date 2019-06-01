@@ -1,0 +1,58 @@
+#COMMON development  IDE Folders:
+# NODE_JS
+node_modules/
+
+# WebStorm
+.idea/
+
+# VSCode
+#.vscode/
+
+# Eclipse
+.metadata/
+.meta
+
+# 发布文件夹
+release/
+
+# 2D模式下的图片资源目录名称
+/img
+mod
+mod_mice
+
+# three.js 资源，开发版本的目录剔除
+three.js-dev
+
+# iis配置文件
+web.config
+
+# iis配置文件
+project.config.json
+
+
+# 项目相关具体目录的忽略
+
+/pinkitec/pad/img/mod
+/pinkitec/pad/img/60
+/pinkitec/pad/img/80zhen
+/pinkitec/pad/img/40zhen
+/pinkitec/wx/wemall/images/mod
+/pinkitec/wx/wemall/bak
+
+/Dou Llen/pad/img/mod
+
+/LtGrff/pad/img/mod
+
+/Planea/pad/img/mod
+
+/Loro Cadini/pad/img_wx
+/Loro Cadini/pad/img_test
+/Loro Cadini/pad/img/mod_1200
+/Loro Cadini/pad/img/mod
+
+
+/Judger/iPad/App_Data/PublishProfiles/localhost.pubxml
+/Judger/iPad/website.publishproj
+/Judger/WeChat/module/suit/img/mod
+/Judger/WeChat/img/mod
+minapp/project.config.json
